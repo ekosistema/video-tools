@@ -42,14 +42,14 @@ Install it using your system's package manager:
 ### 🔒 Global install (system-wide):
 
 ```bash
-sudo curl -sSL https://raw.githubusercontent.com/ekosistema/video-tools/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
+sudo curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
 ```
 
 ### 👤 Local install (user-only, no sudo):
 
 ```bash
 mkdir -p "$HOME/.local/bin"
-curl -sSL https://raw.githubusercontent.com/ekosistema/video-tools/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
+curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
 chmod +x "$HOME/.local/bin/video_tools"
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
@@ -72,14 +72,14 @@ brew install ffmpeg coreutils
 To install the script globally:
 
 ```bash
-sudo curl -sSL https://raw.githubusercontent.com/ekosistema/video-tools/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
+sudo curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
 ```
 
 Or for local user install (no sudo):
 
 ```bash
 mkdir -p "$HOME/.local/bin"
-curl -sSL https://raw.githubusercontent.com/ekosistema/video-tools/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
+curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
 chmod +x "$HOME/.local/bin/video_tools"
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
