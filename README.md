@@ -1,160 +1,109 @@
-# 🎬 Video Tools
+# 🎬 Video Tools ![v2.0.0](https://img.shields.io/badge/version-2.0.0-blue)
 
-A simple, interactive command-line tool to manipulate video files using `ffmpeg`.
+**A modular and extensible command-line toolkit for video manipulation.**
+
+Video Tools 2.0 is a Bash helper that simplifies complex `ffmpeg` operations into an easy-to-use interactive menu. Whether you need to split, merge, simple randomize, or process batches of videos, this tool handles it with grace. 
+
+Now re-engineered with a **modular architecture**, making it faster, safer, and easily extensible.
+
+---
 
 ## ✨ Features
 
-- Split videos into 30s clips
-- Merge multiple videos
-- Remove audio (from file or folder)
-- Extract audio to `.wav`
-- Convert `.mov` (Apple ProRes) to `.mp4`
-- Randomly shuffle short video fragments
-- Interactive terminal prompts
-- Supports WSL, Linux, and macOS
+- **✂️ Smart Splitting**: Automatically split videos into 30-second clips.
+- **🔗 Seamless Merging**: Combine multiple video files from a directory into one.
+- **🔇 Audio Removal**: Strip audio tracks from single files or batch process entire folders.
+- **🎧 Audio Extraction**: Extract high-quality WAV audio from your video files.
+- **🍏 ProRes Conversion**: Convert heavy Apple ProRes (`.mov`) files to high-quality H.264 `.mp4`.
+- **🔀 Video Randomizer**: Create glitch-art style videos by shuffling 1-second fragments.
+- **🧩 Modular Design**: Easily add your own custom scripts to the `modules/` folder.
+- **🖥️ Cross-Platform**: Optimized for **Linux**, **WSL** (Windows Subsystem for Linux), and **macOS**.
 
 ---
 
-## 🛠 Requirements
+## 🚀 Installation
 
-### ✅ `ffmpeg` must be installed and accessible in your `$PATH`.
+### Prerequisites
 
-Install it using your system's package manager:
+Ensure you have **ffmpeg** installed on your system.
+- **macOS**: `brew install ffmpeg coreutils`
+- **Ubuntu/Debian/WSL**: `sudo apt install ffmpeg`
 
-- **macOS (Homebrew):**
-  ```bash
-  brew install ffmpeg
-  ```
+### ⚡ One-Line Install
 
-- **Ubuntu/Debian:**
-  ```bash
-  sudo apt update
-  sudo apt install ffmpeg
-  ```
+Copy and paste this command into your terminal to download and install:
 
-- **WSL (Windows Subsystem for Linux):**
-  Install as you would on Ubuntu.
+```bash
+git clone https://github.com/ekosistema/video-tools.git && cd video-tools && ./install.sh
+```
+
+### 🛠️ Manual Installation
+
+If you prefer to install it manually:
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/ekosistema/video-tools.git
+    cd video-tools
+    ```
+
+2.  **Make scripts executable**:
+    ```bash
+    chmod +x bin/video-tools install.sh
+    chmod +x modules/*.sh
+    ```
+
+3.  **Run the setup script** (creates a symlink):
+    ```bash
+    ./install.sh
+    ```
+    *Alternatively, add the `bin/` folder to your `$PATH` manually.*
 
 ---
 
-## ⚡️ Installation
+## ▶️ Usage
 
-### 🔒 Global install (system-wide):
-
-```bash
-sudo curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
-```
-
-### 👤 Local install (user-only, no sudo):
+Once installed, simply run the tool from anywhere in your terminal:
 
 ```bash
-mkdir -p "$HOME/.local/bin"
-curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
-chmod +x "$HOME/.local/bin/video_tools"
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
+video-tools
 ```
 
-> 💡 **macOS users using zsh:** Replace `~/.bashrc` with `~/.zshrc`.
+You will be greeted by an interactive menu (OS will be detected automatically):
 
-### 🍏 macOS Installation
-
-#### 🧱 Dependencies
-
-1. Install **FFmpeg** and **coreutils** (for `gshuf`):
-
-```bash
-brew install ffmpeg coreutils
-```
-
-#### 📦 Script Installation
-
-To install the script globally:
-
-```bash
-sudo curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o /usr/local/bin/video_tools && sudo chmod +x /usr/local/bin/video_tools
-```
-
-Or for local user install (no sudo):
-
-```bash
-mkdir -p "$HOME/.local/bin"
-curl -sSL https://github.com/ekosistema/video-tools/raw/refs/heads/main/video_tools.sh -o "$HOME/.local/bin/video_tools"
-chmod +x "$HOME/.local/bin/video_tools"
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-> 💡 If you're using Bash on macOS, replace `~/.zshrc` with `~/.bashrc`.
-
-
----
-
-## 🚀 Usage
-
-After installation, run the tool by typing:
-
-```bash
-video_tools
-```
-
-You’ll see an interactive menu like this:
-
-```
-What do you want to do?
-1) Randomize video
-2) Merge videos
-3) Split video (30s)
-4) Remove audio
-5) Extract audio to WAV
-6) Convert Apple ProRes (.mov) to .mp4
+```text
+=== Video Tools (MACOS/LINUX/WSL) ===
+1) Randomize Video - Split a video into 1s clips, shuffle them, and merge back.
+2) Merge Videos - Merge all videos in a selected folder into one file.
+3) Split Video - Split a video into segments (approx. 30s).
+4) Remove Audio - Remove audio track from a video file or all videos in a folder.
+5) Extract Audio - Extract audio (WAV) from a video file or all videos in a folder.
+6) Convert ProRes to MP4 - Convert Apple ProRes (.mov) to high-quality H.264 .mp4.
 7) Exit
 ```
 
-Just type a number and follow the prompts.
+Select an option by typing the number and pressing **Enter**.
 
 ---
 
-## 🧩 Feature Details
+## ❓ Common Problems
 
-### 1) Randomize video
+**1. "Command not found: video-tools"**
+- Ensure you ran `./install.sh`.
+- Check if the installation directory (e.g., `~/bin`) is in your system `$PATH`. You may need to add `export PATH="$HOME/bin:$PATH"` to your `.bashrc` or `.zshrc`.
 
-Splits a video into 1-second clips, shuffles them, and reassembles the final video.
+**2. "gshuf: command not found" (macOS)**
+- The randomizer feature requires `gshuf`. Install it via Homebrew: `brew install coreutils`.
 
-### 2) Merge videos
-
-Select a folder and merge all supported video files inside it (`.mp4`, `.mov`, `.avi`, `.mkv`).
-
-### 3) Split video (30s)
-
-Divides a single video into 30-second segments.
-
-### 4) Remove audio
-
-Remove audio from a single video or all videos inside a folder.
-
-### 5) Extract audio to WAV
-
-Extracts audio in `.wav` format from a video or from all videos in a folder.
-
-### 6) Convert Apple ProRes (.mov) to .mp4
-
-Converts `.mov` (ProRes) files to high-quality `.mp4` using H.264 encoding.
+**3. "Permission denied"**
+- If the script doesn't run, try making it executable: `chmod +x bin/video-tools`.
 
 ---
 
-## 📂 Supported Formats
+## 📝 Credits
 
-- `.mp4`, `.mov`, `.avi`, `.mkv` (case insensitive)
+**Version**: 2.0.0  
+**License**: MIT
 
----
-
-## 📄 License
-
-MIT
-
----
-
-## 🙌 Acknowledgments
-
-Built with ❤️ using `ffmpeg`, `bash`, and a desire to simplify video tasks from the terminal.
+Developed with ❤️ and ☕ by [CeleroLab.Com](https://celerolab.com).  
+*Keeping video editing simple, one script at a time.*

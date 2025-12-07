@@ -1,0 +1,98 @@
+#!/bin/bash
+# ==============================================================================
+# Video Tools 2.0
+# Copyright (C) 2025 CeleroLab
+#
+# Description: Main entry point script for Video Tools.
+# Author: CeleroLab
+# License: MIT
+# ==============================================================================
+
+# Main Video Tools Script
+
+# Resolve directory of this script
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+PROJECT_ROOT="$(dirname "$DIR")"
+
+# --- Fixes for Environment ---
+# Ensure UTF-8 encoding for emoji support
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
+# Unset LD_LIBRARY_PATH to avoid conflicts with Conda/Anaconda libraries
+# which can cause "version `GLIBCXX_...` not found" errors in ffmpeg.
+unset LD_LIBRARY_PATH
+
+# Source libraries
+source "$PROJECT_ROOT/lib/core.sh"
+source "$PROJECT_ROOT/lib/utils.sh"
+
+detect_environment
+
+# Load Modules
+MODULES_DIR="$PROJECT_ROOT/modules"
+MODULE_FILES=()
+MODULE_NAMES=()
+MODULE_DESCS=()
+
+# Find modules
+i=0
+for f in "$MODULES_DIR"/*.sh; do
+  if [ -f "$f" ]; then
+
+    
+    MODULE_NAME=""
+    MODULE_DESCRIPTION=""
+    
+    name=$(grep 'MODULE_NAME=' "$f" | cut -d'"' -f2)
+    desc=$(grep 'MODULE_DESCRIPTION=' "$f" | cut -d'"' -f2)
+    
+    if [ -n "$name" ]; then
+        MODULE_FILES[$i]="$f"
+        MODULE_NAMES[$i]="$name"
+        MODULE_DESCS[$i]="$desc"
+        ((i++))
+    fi
+  fi
+done
+
+function show_menu() {
+  echo -e "\n${BLUE}=== Video Tools (${ENVIRONMENT}) ===${NC}"
+  for ((j=0; j<${#MODULE_NAMES[@]}; j++)); do
+    echo -e "${GREEN}$((j+1)))${NC} ${MODULE_NAMES[$j]} - ${MODULE_DESCS[$j]}"
+  done
+  echo -e "${GREEN}$(( ${#MODULE_NAMES[@]} + 1 )))${NC} Exit"
+}
+
+while true; do
+  show_menu
+  read -rp "Option: " option
+  
+  if [[ "$option" =~ ^[0-9]+$ ]]; then
+      if [ "$option" -le "${#MODULE_NAMES[@]}" ] && [ "$option" -gt 0 ]; then
+          idx=$((option-1))
+          script="${MODULE_FILES[$idx]}"
+          
+          # Run module
+          (
+            source "$script"
+            module_run
+          )
+          
+      elif [ "$option" -eq "$(( ${#MODULE_NAMES[@]} + 1 ))" ]; then
+          echo "Exiting..."
+          exit 0
+      else
+          log_error "Invalid option"
+      fi
+  else
+      log_error "Please enter a number."
+  fi
+  echo "-------------------------------"
+done
