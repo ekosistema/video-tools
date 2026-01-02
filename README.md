@@ -1,8 +1,8 @@
-# 🎬 Video Tools ![v2.0.0](https://img.shields.io/badge/version-2.0.0-blue)
+# 🎬 Video Tools ![v2.1.0](https://img.shields.io/badge/version-2.0.0-blue)
 
 **A modular and extensible command-line toolkit for video manipulation.**
 
-Video Tools 2.0 is a Bash helper that simplifies complex `ffmpeg` operations into an easy-to-use interactive menu. Whether you need to split, merge, simple randomize, or process batches of videos, this tool handles it with grace. 
+Video Tools 2.1.0 is a Bash helper that simplifies complex `ffmpeg` operations into an easy-to-use interactive menu. Whether you need to split, merge, simple randomize, or process batches of videos, this tool handles it with grace. 
 
 Now re-engineered with a **modular architecture**, making it faster, safer, and easily extensible.
 
@@ -10,6 +10,8 @@ Now re-engineered with a **modular architecture**, making it faster, safer, and 
 
 ## ✨ Features
 
+- **🌗 Hybrid CLI/TUI Interface**: Use it manually with a visual menu OR automate it with command-line arguments.
+- **📂 Batch Processing**: All modules now accept folders to process multiple videos at once.
 - **✂️ Smart Splitting**: Automatically split videos into 30-second clips.
 - **🔗 Seamless Merging**: Combine multiple video files from a directory into one.
 - **🔇 Audio Removal**: Strip audio tracks from single files or batch process entire folders.
@@ -63,14 +65,19 @@ If you prefer to install it manually:
 
 ## ▶️ Usage
 
-Once installed, simply run the tool from anywhere in your terminal:
+Video Tools 2.0 now supports a **Hybrid UX**, allowing you to use it either visually (Interactive Menu) or programmatically (Headless CLI).
+
+### 1. 🖥️ Interactive Mode (TUI)
+
+Simply run the tool without arguments to launch the visual menu. This is perfect for when you don't want to remember complex flags.
 
 ```bash
 video-tools
+# OR run a specific module interactively:
+./modules/remove_audio.sh
 ```
 
-You will be greeted by an interactive menu (OS will be detected automatically):
-
+You will see:
 ```text
 === Video Tools (MACOS/LINUX/WSL) ===
 1) Randomize Video - Split a video into 1s clips, shuffle them, and merge back.
@@ -82,7 +89,43 @@ You will be greeted by an interactive menu (OS will be detected automatically):
 7) Exit
 ```
 
-Select an option by typing the number and pressing **Enter**.
+### 2. 🤖 Headless Mode (CLI / Batch)
+
+For power users, pipelines, and cron jobs, you can pass arguments directly to the modules. In this mode, the tool runs **silently** (no questions asked) and exits with a standard status code.
+
+**Common Syntax:**
+```bash
+./modules/<script_name>.sh -i <input> [-o <output>] [other_flags]
+```
+
+**Examples:**
+
+*   **Remove Audio:**
+    ```bash
+    ./modules/remove_audio.sh -i input.mp4 -o output_silent.mp4
+    ```
+
+*   **Split Video (Batch Folder):**
+    ```bash
+    ./modules/split.sh -i /path/to/my_videos_folder/ -t 15
+    ```
+
+*   **Randomize (Glitch Effect):**
+    ```bash
+    ./modules/randomize.sh -i input.mp4
+    # OR process an entire folder:
+    ./modules/randomize.sh -i /path/to/folder/
+    ```
+
+*   **Merge Videos:**
+    ```bash
+    ./modules/merge.sh -i /path/to/video_folder -o final_movie.mp4
+    ```
+
+*   **Get Help:**
+    ```bash
+    ./modules/split.sh --help
+    ```
 
 ---
 
@@ -102,7 +145,7 @@ Select an option by typing the number and pressing **Enter**.
 
 ## 📝 Credits
 
-**Version**: 2.0.0  
+**Version**: 2.1.0  
 **License**: MIT
 
 Developed with ❤️ and ☕ by [CeleroLab.Com](https://celerolab.com).  

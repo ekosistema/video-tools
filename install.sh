@@ -8,18 +8,13 @@
 # License: MIT
 # ==============================================================================
 
-# Installation Script for Video Tools
-
 echo "Installing Video Tools..."
 
-# Resolve project root
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BIN_PATH="$DIR/bin/video-tools"
 
-# Make executable
 chmod +x "$BIN_PATH"
 
-# Ask user where to install
 echo "Where do you want to install 'video-tools' symlink?"
 echo "1) ~/bin (User local, recommended)"
 echo "2) /usr/local/bin (System wide, requires sudo)"
@@ -34,11 +29,10 @@ case $choice in
     mkdir -p "$TARGET_DIR"
     TARGET_LINK="$TARGET_DIR/video-tools"
     ln -sf "$BIN_PATH" "$TARGET_LINK"
-    echo "âœ… Symlink created at $TARGET_LINK"
+    echo "[OK] Symlink created at $TARGET_LINK"
     
-    # Check if in PATH
     if [[ ":$PATH:" != *":$TARGET_DIR:"* ]]; then
-        echo "âš ï¸  $TARGET_DIR is not in your PATH."
+        echo "[WARN] $TARGET_DIR is not in your PATH."
         echo "Add the following line to your ~/.bashrc or ~/.zshrc:"
         echo "export PATH=\"\$HOME/bin:\$PATH\""
     fi
@@ -48,9 +42,9 @@ case $choice in
     echo "Creating symlink at $TARGET_LINK (may ask for password)..."
     sudo ln -sf "$BIN_PATH" "$TARGET_LINK"
     if [ $? -eq 0 ]; then
-        echo "âœ… Symlink created at $TARGET_LINK"
+        echo "[OK] Symlink created at $TARGET_LINK"
     else
-        echo "âŒ Failed to create symlink."
+        echo "[ERROR] Failed to create symlink."
     fi
     ;;
   3)
@@ -62,4 +56,4 @@ case $choice in
     ;;
 esac
 
-echo "âœ… Installation complete!"
+echo "[OK] Installation complete!"

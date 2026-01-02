@@ -8,16 +8,13 @@
 # License: MIT
 # ==============================================================================
 
-
-
-# --- Constants & Colors ---
+# Constants & Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-# --- Environment Detection ---
 function detect_environment() {
   if [[ "$OSTYPE" == "darwin"* ]]; then
     ENVIRONMENT="MACOS"
@@ -29,7 +26,14 @@ function detect_environment() {
   export ENVIRONMENT
 }
 
-# --- Logging Functions ---
+function check_tty() {
+  if [ -t 0 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 function log_info() {
   echo -e "${BLUE}[INFO] $1${NC}"
 }
@@ -51,7 +55,6 @@ function die() {
   exit 1
 }
 
-# --- Dependency Check ---
 function check_dependency() {
   local cmd=$1
   if ! command -v "$cmd" &> /dev/null; then
