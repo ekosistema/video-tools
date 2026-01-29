@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Tools v2.1.0 | Modular CLI Toolkit by CeleroLab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 selection:bg-sky-500/30">
+
+    <nav class="fixed w-full z-50 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-sky-500 p-1.5 rounded-lg">
+                    <i data-lucide="terminal" class="w-5 h-5 text-slate-950"></i>
+                </div>
+                <span class="font-bold tracking-tight text-xl">VideoTools <span class="text-sky-400">2.1</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#features" class="hover:text-sky-400 transition">Features</a>
+                <a href="#usage" class="hover:text-sky-400 transition">Usage</a>
+            </div>
+            <a href="https://github.com/ekosistema/video-tools" target="_blank" class="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10 transition text-sm">
+                <i data-lucide="github" class="w-4 h-4"></i> GitHub
+            </a>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-20 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                </span>
+                VERSION 2.1.0 IS LIVE
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                Master your videos from the <span class="gradient-text">Command Line.</span>
+            </h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                A modular and extensible Bash toolkit that simplifies complex <span class="text-slate-200">FFmpeg</span> operations into an elegant interactive menu.
+            </p>
+            
+            <div class="max-w-2xl mx-auto group relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative flex items-center bg-slate-900 border border-white/10 p-2 rounded-xl">
+                    <div class="flex-1 mono text-left px-4 text-sky-300 text-sm overflow-x-auto whitespace-nowrap py-3">
+                        git clone https://github.com/ekosistema/video-tools.git && cd video-tools && ./install.sh
+                    </div>
+                    <button onclick="copyInstall()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-2 rounded-lg font-bold text-sm transition flex items-center gap-2 shrink-0">
+                        <i data-lucide="copy" class="w-4 h-4"></i> Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="py-20 px-6 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl font-bold mb-4">Powerful capabilities, zero friction.</h2>
+                <p class="text-slate-400">Everything you need for video processing in one single binary.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="layers" class="w-10 h-10 text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">Hybrid UX</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Use the visual TUI menu for manual tasks or Headless mode for automated CI/CD pipelines.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="folder-sync" class="w-10 h-10 text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">Batch Processing</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Don't waste time on single files. All modules support folder-wide operations out of the box.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="shuffle" class="w-10 h-10 text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">Glitch Randomizer</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Create unique glitch-art by shuffling 1-second fragments. Perfect for experimental visuals.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="scissors" class="text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">Smart Splitting</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Automatically carve your videos into 30-second clips, optimized for social media delivery.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="zap" class="text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">ProRes to MP4</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Lightning fast conversion from heavy Apple ProRes files to web-optimized H.264 MP4.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-slate-900 border border-white/5 hover:border-sky-500/30 transition group">
+                    <i data-lucide="puzzle" class="text-sky-500 mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-xl font-bold mb-3">Modular Design</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Extensible architecture. Easily drop your own scripts into the modules folder.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="usage" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-slate-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                <div class="bg-white/5 px-6 py-4 flex items-center gap-2 border-b border-white/10">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                    <span class="ml-4 text-xs text-slate-500 mono font-medium">~/terminal/video-tools --help</span>
+                </div>
+                <div class="p-8 mono text-sm leading-relaxed">
+                    <p class="text-sky-400 mb-2"># Run the interactive menu</p>
+                    <p class="text-white mb-6 font-bold">$ video-tools</p>
+                    
+                    <p class="text-sky-400 mb-2"># Remove audio from a specific file</p>
+                    <p class="text-white mb-6 font-bold">$ ./modules/remove_audio.sh -i input.mp4 -o silent.mp4</p>
+                    
+                    <p class="text-sky-400 mb-2"># Batch randomize an entire folder</p>
+                    <p class="text-white font-bold">$ ./modules/randomize.sh -i /path/to/folder/</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 border-t border-white/5 text-center">
+        <p class="text-slate-500 text-sm mb-4">
+            Version 2.1.0 • Released under MIT License
+        </p>
+        <p class="text-slate-300 font-medium">
+            Developed with ❤️ by <a href="https://celerolab.com" class="text-sky-400 hover:underline">CeleroLab.Com</a>
+        </p>
+
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Copy function
+        function copyInstall() {
+            const text = "git clone https://github.com/ekosistema/video-tools.git && cd video-tools && ./install.sh";
+            navigator.clipboard.writeText(text);
+            alert("Command copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
